@@ -110,13 +110,12 @@ void CsgoMain()
 
 		
 		RECT rect = { x - 2, y - 2, x + 2, y + 2 };
-		Sleep(1);
 		FrameRect(hdc, &rect, brush, 2);
 
 
 		MAT4X4 viewMatrix = ReadMemory<MAT4X4>(clientBase + dwViewMatrix);
 
-		for (size_t i = 0; i < 32; i++)
+		for (size_t i = 0; i < 64; i++)
 		{
 			DWORD currEnt = ReadMemory<DWORD>(clientBase + dwEntityList + (i * 0x10));
 			if (!currEnt)
@@ -146,13 +145,12 @@ void CsgoMain()
 			int height = headScreen.y - feetPosScreen.y;
 			int width = height / 4;
 
-			float Entity_x = feetPosScreen.x - width;
-			float Entity_y = feetPosScreen.y;
+			float Entity_x = feetPosScreen.x;
+			float Entity_y = feetPosScreen.y; // feetPosScreen.y
 			float Entity_w = height / 2;
 
-			RECT boxEsp = { Entity_x, Entity_y , Entity_x, Entity_y };
-			Sleep(1);
-			FrameRect(hdc, &boxEsp, brush2, 1);
+			RECT boxEsp = { Entity_x , Entity_y - 3 , Entity_x , Entity_y + 3 };
+			FrameRect(hdc, &boxEsp, brush2, 3);
 		}
 
 
