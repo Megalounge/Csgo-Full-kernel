@@ -20,7 +20,7 @@ bool SaveWhileLoop()
 	if (!UpdateKeyMap())
 		ExitThread();
 
-	if (!KeyDown(VK_NUMPAD5))
+	if (!KeyDown(VK_DELETE))
 	{
 		return true;
 	}
