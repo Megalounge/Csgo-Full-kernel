@@ -80,9 +80,17 @@ void CsgoMain()
 		}
 
 		brush = NtGdiCreateSolidBrush(RGB(255, 0, 0), NULL);
+		brush2 = NtGdiCreateSolidBrush(RGB(0, 200, 0), NULL);
 		if (!brush)
 		{
 			Print("failed create brush");
+			NtUserReleaseDC(hdc);
+			UnspoofWin32Thread();
+			continue;
+		}
+		if (!brush2)
+		{
+			Print("failed create brush2");
 			NtUserReleaseDC(hdc);
 			UnspoofWin32Thread();
 			continue;
@@ -102,6 +110,7 @@ void CsgoMain()
 
 		
 		RECT rect = { x - 2, y - 2, x + 2, y + 2 };
+		Sleep(1);
 		FrameRect(hdc, &rect, brush, 2);
 
 
@@ -121,9 +130,9 @@ void CsgoMain()
 			if (dormant)
 				continue;
 
-			DWORD teamNum = ReadMemory<DWORD>(currEnt + m_iTeamNum);
+			/*DWORD teamNum = ReadMemory<DWORD>(currEnt + m_iTeamNum);
 			if (teamNum == localTeam)
-				continue;
+				continue;*/
 
 			Vector3 feetPos = ReadMemory<Vector3>(currEnt + m_vecOrigin);
 			Vector2 feetPosScreen = WorldToScreen(feetPos, viewMatrix);
@@ -141,12 +150,14 @@ void CsgoMain()
 			float Entity_y = feetPosScreen.y;
 			float Entity_w = height / 2;
 
-			RECT boxEsp = { Entity_x + Entity_w, Entity_y + height, Entity_x, Entity_y };
-			FrameRect(hdc, &boxEsp, brush, 1);
+			RECT boxEsp = { Entity_x, Entity_y , Entity_x, Entity_y };
+			Sleep(1);
+			FrameRect(hdc, &boxEsp, brush2, 1);
 		}
 
 
 		NtGdiDeleteObjectApp(brush);
+		NtGdiDeleteObjectApp(brush2);
 		NtUserReleaseDC(hdc);
 
 
