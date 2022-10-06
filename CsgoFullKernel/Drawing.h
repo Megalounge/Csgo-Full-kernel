@@ -66,6 +66,7 @@ CLIENT_ID currentCid = { 0 };
 
 HDC hdc;
 HBRUSH brush;
+HBRUSH brush2;
 
 bool SpoofWin32Thread()
 {
